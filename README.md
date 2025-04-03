@@ -27,7 +27,7 @@ sudo apt update && sudo apt install -y git rustc golang python3 python3-pip nmap
 ### **Build from Source**  
 ```bash
 git clone https://github.com/Vikash-mn/webscan.git
-cd ultimate-recon
+cd webscan
 
 # Build Rust components
 cd rust && cargo build --release && cp target/release/scanner ../bin/
