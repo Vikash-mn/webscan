@@ -9,26 +9,26 @@ webdriver-manager==4.0.1
 
 # Security & Analysis
 wappalyzer-python
-sslyze==5.0.0
-cryptography==41.0.7
-fake-useragent==1.2.1
+sslyze
+cryptography
+fake-useragent
 
 # Reporting & Output
-jinja2==3.1.2
-markdown==3.5.1
-pygments==2.17.2
+jinja2
+markdown
+pygments
 
 # Utilities
-tqdm==4.66.1
-python-dotenv==1.0.0
-concurrent-log-handler==0.9.24
+tqdm
+python-dotenv
+concurrent-log-handler
 
 # Optional (for enhanced features)
-# nuclei-wrapper==0.1.0  # If integrating with Nuclei
-# zapv2==0.1.0  # If integrating with OWASP ZAP
+# nuclei-wrapper  # If integrating with Nuclei
+# zapv2  # If integrating with OWASP ZAP
 
 # Development
-pytest==8.0.0
-pytest-cov==4.1.0
-flake8==6.1.0
-mypy==1.7.1
+pytest
+pytest-cov
+flake8
+mypy
