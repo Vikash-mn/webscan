@@ -55,8 +55,8 @@ The **Ultimate Website Scanner** is a powerful, all-in-one security assessment t
 
 ### ⚙️ Setup
 ```bash
-git clone https://github.com/yourusername/ultimate-scanner.git
-cd ultimate-scanner
+git clone https://github.com/Vikash-mn/webscan.git
+cd webscan
 pip install -r requirements.txt
 python -m webdriver_manager install
 ```
