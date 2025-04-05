@@ -67,17 +67,17 @@ python -m webdriver_manager install
 
 ### 🔹 Basic Scan
 ```bash
-python ultimate_scanner.py https://example.com
+python webscan.py https://example.com
 ```
 
 ### 🔹 Full Scan (All Ports + Aggressive Checks)
 ```bash
-python ultimate_scanner.py https://example.com --full --aggressive
+python webscan.py https://example.com --full --aggressive
 ```
 
 ### 🔹 Save as HTML Report
 ```bash
-python ultimate_scanner.py https://example.com --output html --save
+python webscan.py https://example.com --output html --save
 ```
 
 ---
