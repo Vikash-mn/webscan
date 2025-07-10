@@ -1,137 +1,148 @@
-# 🚀 Ultimate Website Reconnaissance & Vulnerability Assessment Tool
+# ULTIMATE Website Reconnaissance & Vulnerability Assessment Tool
 
-![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Security](https://img.shields.io/badge/security-tool-red)
+The ULTIMATE Website Scanner is a comprehensive security assessment tool designed for penetration testers, security researchers, and system administrators. This all-in-one solution combines network scanning, web technology detection, vulnerability assessment, and reporting capabilities into a single powerful Python tool.
 
-The **Ultimate Website Scanner** is a powerful, all-in-one security assessment tool designed to perform deep reconnaissance and comprehensive vulnerability analysis of web applications and servers.
+## Key Capabilities
 
----
+The tool performs complete website reconnaissance including:
 
-## 🌟 Features
+1. **Network Discovery**  
+   - Full port scanning with Nmap integration
+   - DNS enumeration (A, AAAA, MX, TXT records)
+   - SSL/TLS certificate analysis
+   - Cloud infrastructure detection (AWS, Azure, GCP)
 
-### 🔍 Reconnaissance
-- DNS enumeration & IP resolution
-- Full port scanning with service detection
-- Subdomain discovery
-- Cloud infrastructure detection
-- WHOIS information lookup
+2. **Technology Fingerprinting**  
+   - Automatic detection of 300+ technologies
+   - CMS identification (WordPress, Drupal, Joomla)
+   - Framework detection (Laravel, Django, Rails)
+   - JavaScript library analysis (React, Angular, Vue)
 
-### 🕵️ Web Analysis
-- Technology stack fingerprinting (via Wappalyzer)
-- SSL/TLS configuration assessment
-- CMS detection (WordPress, Joomla, Drupal)
-- Header and cookie security analysis
+3. **Security Assessment**  
+   - OWASP Top 10 vulnerability scanning
+   - Automated checks with Nikto and Nuclei
+   - Authentication mechanism testing
+   - CSRF/XSS/SQL injection detection
 
-### 📂 Content Discovery
-- JavaScript-rendered content spidering
-- Form extraction and analysis
-- Hidden comments and JavaScript review
-- SEO and metadata audits
-- Webpage screenshot capturing
+4. **Content Analysis**  
+   - Full-site spidering with JavaScript rendering
+   - Form extraction and analysis
+   - Comment/metadata mining
+   - SEO configuration checks
 
-### 🛡️ Security Checks
-- Vulnerability scanning (Nikto & Nuclei integration)
-- CORS misconfiguration detection
-- Security header verification
-- Sensitive file discovery
-- Authentication & session testing
-- CSRF, Clickjacking, SQLi, and XSS detection
+5. **Reporting**  
+   - Multiple output formats (JSON, HTML, Markdown)
+   - Screenshot capture of all pages
+   - Executive summaries and technical details
 
-### 📊 Reporting
-- Multiple formats: JSON, HTML, Markdown, Text
-- Risk scoring & prioritization
-- Executive summary + technical findings
+## Installation Guide
 
----
+### Prerequisites
 
-## 🛠️ Installation
-
-### ✅ Prerequisites
-- Python 3.8+
-- Google Chrome / Chromium browser
-- Nmap
-- *(Optional)* Nikto & Nuclei for advanced scanning
-
-### ⚙️ Setup
 ```bash
-git clone https://github.com/Vikash-mn/webscan.git
-cd webscan
+# On Ubuntu/Debian:
+sudo apt update && sudo apt install -y \
+    python3.9 \
+    chromium-browser \
+    nmap \
+    nikto \
+    nuclei \
+    sslyze
+Python Setup
+bash
+# Clone repository
+git clone https://github.com/yourrepo/webscanner.git
+cd webscanner
+
+# Install dependencies
 pip install -r requirements.txt
-python -m webdriver_manager install
-```
 
----
-
-## 🚦 Usage Examples
-
-### 🔹 Basic Scan
-```bash
+# Set up wordlists
+mkdir -p /usr/share/wordlists
+wget https://github.com/danielmiessler/SecLists/archive/master.zip
+unzip master.zip -d /usr/share/wordlists/
+Usage Examples
+Basic Scan (Non-intrusive)
+bash
 python webscan.py https://example.com
-```
+Comprehensive Security Audit
+bash
+python webscan.py https://example.com \
+    -f \          # Full port scan
+    -a \          # Aggressive checks
+    -t 20 \       # 20 threads
+    -o html \     # HTML report
+    -s \          # Save to file
+    -v            # Verbose output
+Targeted Technology Analysis
+bash
+python webscan.py https://example.com \
+    --skip-network \    # Skip port scanning
+    --skip-security     # Skip vulnerability checks
+Complete Command Reference
+Option	Description	Default
+url	Target URL to scan	Required
+-f, --full	Scan all 65535 ports	False
+-hp, --hidden-ports	Scan uncommon web ports	False
+-a, --aggressive	Run intrusive checks	False
+-o FORMAT	Output format (json/html/md/txt)	json
+-s, --save	Save results to file	False
+-v, --verbose	Show detailed output	False
+-t NUM, --threads NUM	Maximum threads to use	15
+--rate-limit SEC	Delay between requests (seconds)	0.1
+--random-delay	Add random delay to requests	False
+--skip-network	Skip network scanning	False
+--skip-tech	Skip technology detection	False
+--skip-security	Skip vulnerability scanning	False
+--no-selenium	Disable browser rendering	False
+Configuration Options
+The tool can be customized by editing the CONFIG dictionary in webscan.py:
 
-### 🔹 Full Scan (All Ports + Aggressive Checks)
-```bash
-python webscan.py https://example.com --full --aggressive
-```
-
-### 🔹 Save as HTML Report
-```bash
-python webscan.py https://example.com --output html --save
-```
-
----
-
-## 🧩 Command Line Options
-
-| Option | Description | Default |
-|--------|-------------|---------|
-| `-h`, `--help` | Show help message | — |
-| `-f`, `--full` | Full scan (all ports) | False |
-| `-hp`, `--hidden-ports` | Scan hidden ports | False |
-| `-a`, `--aggressive` | Aggressive/intrusive checks | False |
-| `-o`, `--output` | Output format: `json`, `html`, `markdown`, `text` | json |
-| `-s`, `--save` | Save report to file | False |
-| `-v`, `--verbose` | Verbose logging | False |
-| `-t`, `--threads` | Maximum threads to use | 15 |
-
----
-
-## ⚙️ Configuration
-
-Customize scanning behavior in the script via the `CONFIG` dictionary:
-
-```python
+python
 CONFIG = {
+    # Timeout settings (seconds)
     'timeouts': {
-        'requests': 20,
-        'selenium': 60,
-        'nmap': 1200,
-        'subprocess': 900
+        'requests': 20,       # HTTP requests
+        'selenium': 60,       # Browser operations
+        'nmap': 1200,         # Port scanning
+        'subprocess': 900     # External tools
     },
+    
+    # Wordlist paths
+    'wordlists': {
+        'dirs': '/usr/share/wordlists/seclists/Discovery/Web-Content/common.txt',
+        'subdomains': '/usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt',
+        'passwords': '/usr/share/wordlists/seclists/Passwords/rockyou.txt'
+    },
+    
+    # Port configurations
     'ports': {
-        'default': '80,443,8080,8443',
-        'hidden': '3000-4000,5000-6000',
-        'full': '1-65535'
+        'default': '80,443,8080,8443',  # Standard web ports
+        'hidden': '3000-4000,5000-6000', # Uncommon ranges
+        'full': '1-65535',              # All ports
+        'common_web': '81,591,2082...', # Additional web ports
+        'database': '1433,1521,3306...' # Database ports
     },
-    'max_threads': 15,
-    'rate_limit_delay': 0.1,
-    'max_pages': 100,
-    'max_depth': 5
+    
+    # Output settings
+    'output_dir': 'scan_results',
+    'screenshots_dir': 'screenshots',
+    
+    # Scan limits
+    'max_pages': 100,        # Maximum pages to spider
+    'max_depth': 5,          # Maximum directory depth
+    'max_threads': 15,       # Default maximum threads
+    'rate_limit_delay': 0.1  # Base delay between requests
 }
-```
+Sample Report Output
+Reports include comprehensive findings in structured format:
 
----
-
-## 📝 Sample Report (JSON)
-```json
+json
 {
   "metadata": {
     "url": "https://example.com",
-    "domain": "example.com",
-    "timestamp": "2023-12-15T12:00:00Z",
-    "execution_time": 125.7,
-    "tool_version": "3.1"
+    "timestamp": "2023-11-15T12:34:56",
+    "execution_time": 125.7
   },
   "findings": {
     "network": {
@@ -143,8 +154,8 @@ CONFIG = {
       "open_ports": {
         "80/tcp": {
           "service": "http",
-          "product": "nginx",
-          "version": "1.18.0"
+          "version": "nginx/1.18.0",
+          "vulnerabilities": []
         }
       }
     },
@@ -152,51 +163,54 @@ CONFIG = {
       "technologies": {
         "Nginx": {
           "version": "1.18.0",
-          "categories": ["web-servers"]
+          "confidence": 100
+        },
+        "WordPress": {
+          "version": "5.7.2",
+          "plugins": ["woocommerce"]
         }
-      },
-      "security_headers": {
-        "X-Frame-Options": "MISSING",
-        "Content-Security-Policy": "MISSING"
       }
     }
-  },
-  "vulnerabilities": [
-    {
-      "type": "missing_security_header",
-      "severity": "medium",
-      "description": "Missing X-Frame-Options header",
-      "remediation": "Add X-Frame-Options header"
-    }
-  ]
+  }
 }
-```
+Best Practices
+Legal Compliance
+Always obtain proper authorization before scanning any website. The tool includes automatic robots.txt checking by default.
 
----
+Stealth Scanning
+For sensitive environments, use:
 
-## 📸 Screenshots
+bash
+python webscan.py https://example.com \
+    --rate-limit 2 \
+    --random-delay \
+    -t 5 \
+    --no-selenium
+Resource Management
+Large sites may require increased timeouts:
 
-### 🔹 Dashboard View
-*Sample HTML dashboard report showing key metrics.*
+python
+# In webscan.py
+CONFIG['timeouts']['requests'] = 30
+CONFIG['timeouts']['selenium'] = 120
+Output Management
+Generate timestamped reports:
 
-### 🔹 Vulnerabilities Panel
-*Detailed list of identified vulnerabilities with severity and remediation.*
+bash
+python webscan.py https://example.com -o html -s
+mv scan_results/report.html scan_results/example_com_$(date +%Y%m%d).html
+Limitations
+Browser Requirements
+JavaScript-heavy sites require Chrome/Chromium installation for full analysis.
 
----
+Security Systems
+Aggressive scanning (-a flag) may trigger WAF/IDS protections.
 
-## 📜 License
+Resource Intensive
+Comprehensive scans require:
 
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more details.
+Minimum 2GB RAM
 
----
+2 CPU cores
 
-## ⚠️ Disclaimer
-
-> 🛡️ **Legal Notice**  
-> This tool is intended strictly for authorized security testing.  
-> - You **must** obtain permission before scanning any system.  
-> - Do **not** use this tool for illegal, malicious, or unauthorized purposes.  
-> - The authors are not liable for any misuse.  
-> - Use it at your own risk.  
-
-By using this tool, you agree to conduct only **legal and ethical** security assessments.
+1GB disk space for reports
